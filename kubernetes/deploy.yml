@@ -28,7 +28,10 @@ spec:
             - name: BUSINESS_PROCESS_DB_USERNAME
               value: "doadmin"
             - name: BUSINESS_PROCESS_DB_PASSWORD
-              value: "AVNS_xN6h3TZAvlOwe4vdAdk"
+              valueFrom:
+                secretKeyRef:
+                  name: business-process-service-secrets
+                  key: BUSINESS_PROCESS_DB_PASSWORD
             - name: UBL_DB_HOST
               value: "kola-postgress-do-user-13910731-0.c.db.ondigitalocean.com"
             - name: UBL_DB_HOST_PORT
@@ -38,7 +41,10 @@ spec:
             - name: UBL_DB_USERNAME
               value: "doadmin"
             - name: UBL_DB_PASSWORD
-              value: "AVNS_xN6h3TZAvlOwe4vdAdk"
+              valueFrom:
+                secretKeyRef:
+                  name: business-process-service-secrets
+                  key: UBL_DB_PASSWORD
             - name: CAMUNDA_DB_HOST
               value: "kola-postgress-do-user-13910731-0.c.db.ondigitalocean.com"
             - name: CAMUNDA_DB_PORT
@@ -48,7 +54,10 @@ spec:
             - name: CAMUNDA_DB_USERNAME
               value: "doadmin"
             - name: CAMUNDA_DB_PASSWORD
-              value: "AVNS_xN6h3TZAvlOwe4vdAdk"
+              valueFrom:
+                secretKeyRef:
+                  name: business-process-service-secrets
+                  key: CAMUNDA_DB_PASSWORD
             - name: BINARY_CONTENT_DB_HOST
               value: "kola-postgress-do-user-13910731-0.c.db.ondigitalocean.com"
             - name: BINARY_CONTENT_DB_PORT
@@ -58,7 +67,10 @@ spec:
             - name: BINARY_CONTENT_DB_USERNAME
               value: "doadmin"
             - name: BINARY_CONTENT_DB_PASSWORD
-              value: "AVNS_xN6h3TZAvlOwe4vdAdk"
+              valueFrom:
+                secretKeyRef:
+                  name: business-process-service-secrets
+                  key: BINARY_CONTENT_DB_PASSWORD
             - name: BINARY_CONTENT_URL
               value: "http://not-yet-in-use/"
             - name: KAFKA_BOOTSTRAP_SERVERS
@@ -84,7 +96,10 @@ spec:
             - name: BP_SERVICE_OAUTH_CLIENT_ID
               value: "bp-service-client"
             - name: BP_SERVICE_OAUTH_SECRET
-              value: "9570fee1-f7a2-4922-890d-5f48cb4664c4"
+              valueFrom:
+                secretKeyRef:
+                  name: business-process-service-secrets
+                  key: BP_SERVICE_OAUTH_SECRET
             - name: IDENTITY_SERVICE_URL
               value: "http://identity-service:9096/"
             - name: TRUST_SERVICE_URL
