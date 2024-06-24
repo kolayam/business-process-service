@@ -1,80 +1,136 @@
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
+  name: business-process-service
+  namespace: nimble-platform
   labels:
     app: nimble-platform
-    name: business-process-service
-  name: business-process-service
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: nimble-platform
-      name: business-process-service
-  strategy:
-    rollingUpdate:
-      maxSurge: 1
-      maxUnavailable: 1
-    type: RollingUpdate
-  revisionHistoryLimit: 5
+      app: business-process-service
   template:
     metadata:
       labels:
-        app: nimble-platform
-        name: business-process-service
+        app: business-process-service
     spec:
       containers:
-      - image: nimbleplatform/business-process-service
-        imagePullPolicy: Always
-        name: business-process-service
-        ports:
-        - containerPort: 8085
-          name: http
-          protocol: TCP
-        resources:
-          requests:
-            cpu: 200m
-            memory: 256Mi
-        env:
-          - name: SPRING_PROFILES_ACTIVE
-            value: kubernetes
-          - name: DISCOVERY_ENABLED
-            value: "false"
-          - name: DB_CREDENTIALS_JSON # Camunda database
-            valueFrom:
-              secretKeyRef:
-                name: binding-nimble-camunda-db-prod
-                key: binding
-          - name: BLUEMIX_BUSINESS_PROCESS_DB_JSON
-            valueFrom:
-              secretKeyRef:
-                name: binding-nimble-business-process-db-prod
-                key: binding
-          - name: BLUEMIX_UBL_DB_JSON
-            valueFrom:
-              secretKeyRef:
-                name: binding-nimble-ubl-db-prod
-                key: binding
-          - name: BLUEMIX_MODAML_DB_JSON
-            valueFrom:
-              secretKeyRef:
-                name: binding-nimble-modaml-db-prod
-                key: binding
+        - name: business-process-service
+          image: nimbleplatform/business-process-service:latest
+          env:
+            - name: BUSINESS_PROCESS_DB_HOST
+              value: "kola-postgress-do-user-13910731-0.c.db.ondigitalocean.com"
+            - name: BUSINESS_PROCESS_DB_PORT
+              value: "25060"
+            - name: BUSINESS_PROCESS_DB_NAME
+              value: "businessprocessdb"
+            - name: BUSINESS_PROCESS_DB_USERNAME
+              value: "doadmin"
+            - name: BUSINESS_PROCESS_DB_PASSWORD
+              value: "AVNS_xN6h3TZAvlOwe4vdAdk"
+            - name: UBL_DB_HOST
+              value: "kola-postgress-do-user-13910731-0.c.db.ondigitalocean.com"
+            - name: UBL_DB_HOST_PORT
+              value: "25060"
+            - name: UBL_DB_NAME
+              value: "ubldb"
+            - name: UBL_DB_USERNAME
+              value: "doadmin"
+            - name: UBL_DB_PASSWORD
+              value: "AVNS_xN6h3TZAvlOwe4vdAdk"
+            - name: CAMUNDA_DB_HOST
+              value: "kola-postgress-do-user-13910731-0.c.db.ondigitalocean.com"
+            - name: CAMUNDA_DB_PORT
+              value: "25060"
+            - name: CAMUNDA_DB_NAME
+              value: "camundadb"
+            - name: CAMUNDA_DB_USERNAME
+              value: "doadmin"
+            - name: CAMUNDA_DB_PASSWORD
+              value: "AVNS_xN6h3TZAvlOwe4vdAdk"
+            - name: BINARY_CONTENT_DB_HOST
+              value: "kola-postgress-do-user-13910731-0.c.db.ondigitalocean.com"
+            - name: BINARY_CONTENT_DB_PORT
+              value: "25060"
+            - name: BINARY_CONTENT_DB_NAME
+              value: "binarycontentdb"
+            - name: BINARY_CONTENT_DB_USERNAME
+              value: "doadmin"
+            - name: BINARY_CONTENT_DB_PASSWORD
+              value: "AVNS_xN6h3TZAvlOwe4vdAdk"
+            - name: BINARY_CONTENT_URL
+              value: "http://not-yet-in-use/"
+            - name: KAFKA_BOOTSTRAP_SERVERS
+              value: "kafka:9092"
+            - name: KAFKA_JAAS_CONFIG
+              value: ""
+            - name: _JAVA_OPTIONS
+              value: "-Xmx512m -Xms50m"
+            - name: SMTP_HOST
+              value: "maildev"
+            - name: SMTP_PORT
+              value: "25"
+            - name: SMTP_DEFAULT_FROM
+              value: "nimble@local-dev"
+            - name: SMTP_USERNAME
+              value: ""
+            - name: SMTP_PASSWORD
+              value: ""
+            - name: SMTP_AUTH
+              value: "false"
+            - name: SMTP_STARTTLS
+              value: "false"
+            - name: BP_SERVICE_OAUTH_CLIENT_ID
+              value: "bp-service-client"
+            - name: BP_SERVICE_OAUTH_SECRET
+              value: "9570fee1-f7a2-4922-890d-5f48cb4664c4"
+            - name: IDENTITY_SERVICE_URL
+              value: "http://identity-service:9096/"
+            - name: TRUST_SERVICE_URL
+              value: "http://trust-service:9098/"
+            - name: CONFIG_SERVER_URI
+              value: "http://config-server:8888"
+            - name: CONFIG_SERVER_FAILFAST
+              value: "true"
+            - name: DISCOVERY_ENABLED
+              value: "true"
+            - name: DISCOVERY_PREFER_IP
+              value: "false"
+            - name: DISCOVERY_SERVER_URI
+              value: "http://service-discovery:8761"
+            - name: BUSINESS_PROCESS_SERVICE_URL
+              value: ""
+            - name: DATA_CHANNEL_SERVICE_URL
+              value: "http://data-channel-service:9099"
+            - name: FRONTEND_URL
+              value: "https://nimble.kolayam.co.uk"
+            - name: FEDERATION_INSTANCE_ID
+              value: ""
+            - name: KAFKA_TOPIC_BUSINESS_PROCESS_UPDATES
+              value: ""
+            - name: KEYCLOAK_PUBLIC_KEY
+              value: "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAg99CjKcp4Lm28juVmoe8nitA4yRdDOvQO5kzhPmUCSut9yyAYlJt9JNOFJMRs3zJoEd2JzpI9gBrQYWAQ8q/Uf13lQHDYPQATBdGt+eI7a0Cxl/NGRAOap56yg1KwWs89EIaTiAdQNiWLWXUAm5xA6MGEevBj/azbMofBpf4wjtJ6bFAEa5KGrfEuzMTxiWHNiM8F0ow17STJx5s/T+wqw6qZ+pK6pE1DvbZ0KDOyLCwBvYAMwd7tw5jmSjMnlOn3k1SoCDv9kt8/UL6AJMXMTQZFsyPuthPA/XidRlJCRGaoiNByfSoQExtlO5PkFeDy1vBsqRTL3cpIbVeDsP+JQIDAQAB"
+          ports:
+            - containerPort: 8081
+          resources:
+            requests:
+              cpu: 200m
+              memory: 256Mi
+            limits:
+              memory: 2000Mi
 
 ---
-
 kind: Service
 metadata:
   name: business-process-service
   labels:
     app: nimble-platform
-    name: business-process-service
 spec:
   ports:
     - name: http
       protocol: TCP
       port: 8085
-      targetPort: 8085
+      targetPort: 8081
   selector:
-    app: nimble-platform
-    name: business-process-service
+    app: business-process-service
