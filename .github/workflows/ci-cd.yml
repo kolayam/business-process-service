@@ -30,7 +30,7 @@ jobs:
           mvn clean install
 
       - name: Run Tests
-        if: github.ref_name == 'add-ci-cd'
+        if: ${{ github.ref_name }} == 'add-ci-cd'
         run: |
           source /var/jenkins_home/test_staging.sh && mvn clean test
 
