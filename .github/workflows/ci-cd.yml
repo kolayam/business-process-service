@@ -6,9 +6,6 @@ on:
       - add-ci-cd
       - master
       - staging
-  push:
-    tags:
-      - "v*.*.*"
 
 jobs:
   build:
