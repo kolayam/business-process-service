@@ -26,7 +26,7 @@ jobs:
           rm -rf common
           git clone https://github.com/nimble-platform/common
           cd common
-          git checkout ${{ github.ref_name }}
+          git checkout staging
           mvn clean install
 
       - name: Run Tests
