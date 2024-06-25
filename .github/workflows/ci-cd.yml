@@ -19,7 +19,7 @@ jobs:
         uses: actions/setup-java@v3
         with:
           distribution: "adopt"
-          java-version: "11"
+          java-version: "21"
 
       - name: Build Dependencies
         run: |
@@ -111,8 +111,8 @@ jobs:
         run: |
           sed -i 's|IMAGE_TAG|rannybal2024/business-process-service:${{ github.ref_name }}-{{ github.run_number }}|' kubernetes/deploy.yml
 
-      - name: Apply Kubernetes deployment
-        run: kubectl --kubeconfig=$HOME/kube-config.yaml apply -f kubernetes/deploy.yml
+      # - name: Apply Kubernetes deployment
+      #   run: kubectl --kubeconfig=$HOME/kube-config.yaml apply -f kubernetes/deploy.yml
 
       - name: Clean up kubeconfig
         run: rm -f $HOME/kube-config.yaml
