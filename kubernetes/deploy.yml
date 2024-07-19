@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: business-process-service2
+  name: business-process-service
   namespace: nimble-platform
   labels:
     app: nimble-platform
@@ -9,14 +9,14 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      app: business-process-service2
+      app: business-process-service
   template:
     metadata:
       labels:
-        app: business-process-service2
+        app: business-process-service
     spec:
       containers:
-        - name: business-process-service2
+        - name: business-process-service
           image: 'rannybal2024/business-process-service:IMAGE_TAG'
           ports:
             - containerPort: 8085
