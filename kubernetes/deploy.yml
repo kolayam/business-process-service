@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: business-process-service2
-          image: 'rannybal2024/business-process-service'
+          image: 'rannybal2024/business-process-service:IMAGE_TAG'
           ports:
             - containerPort: 8081
               protocol: TCP

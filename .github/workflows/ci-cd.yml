@@ -22,7 +22,7 @@ jobs:
 
       - name: Update Kubernetes deployment with new image
         run: |
-          sed -i 's|IMAGE_TAG|rannybal2024/business-process-service:${{ github.run_number }}|' kubernetes/deploy.yml
+          sed -i 's|IMAGE_TAG|${{ github.run_number }}|' kubernetes/deploy.yml
 
       - name: Set up kubeconfig
         run: echo "${{ secrets.KUBECONFIG }}" > $HOME/kube-config.yaml
