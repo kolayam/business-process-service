@@ -5,6 +5,7 @@ metadata:
     app: nimble-platform
     name: business-process-service2
   name: business-process-service2
+  namespace: nimble-platform
 spec:
   replicas: 1
   selector:
