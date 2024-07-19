@@ -16,7 +16,7 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       - name: Build Docker image
-        run: docker build --platform linux/amd64 -t rannybal2024/business-process-service:${{ github.run_number }} .
+        run: docker build -t rannybal2024/business-process-service:${{ github.run_number }} .
 
       - name: Push Docker image
         run: docker push rannybal2024/business-process-service:${{ github.run_number }}
