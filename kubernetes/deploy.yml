@@ -3,14 +3,14 @@ kind: Deployment
 metadata:
   labels:
     app: nimble-platform
-    name: business-process-service
-  name: business-process-service
+    name: business-process-service2
+  name: business-process-service2
 spec:
   replicas: 1
   selector:
     matchLabels:
       app: nimble-platform
-      name: business-process-service
+      name: business-process-service2
   strategy:
     rollingUpdate:
       maxSurge: 1
@@ -21,12 +21,12 @@ spec:
     metadata:
       labels:
         app: nimble-platform
-        name: business-process-service
+        name: business-process-service2
     spec:
       containers:
-      - image: nimbleplatform/business-process-service
+      - image: nimbleplatform/business-process-service2
         imagePullPolicy: Always
-        name: business-process-service
+        name: business-process-service2
         ports:
         - containerPort: 8085
           name: http
@@ -60,21 +60,3 @@ spec:
               secretKeyRef:
                 name: binding-nimble-modaml-db-prod
                 key: binding
-
----
-
-kind: Service
-metadata:
-  name: business-process-service
-  labels:
-    app: nimble-platform
-    name: business-process-service
-spec:
-  ports:
-    - name: http
-      protocol: TCP
-      port: 8085
-      targetPort: 8085
-  selector:
-    app: nimble-platform
-    name: business-process-service
