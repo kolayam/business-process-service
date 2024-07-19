@@ -1,63 +1,134 @@
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
-  labels:
-    app: nimble-platform
-    name: business-process-service2
   name: business-process-service2
   namespace: nimble-platform
+  labels:
+    app: nimble-platform
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: nimble-platform
-      name: business-process-service2
-  strategy:
-    rollingUpdate:
-      maxSurge: 1
-      maxUnavailable: 1
-    type: RollingUpdate
-  revisionHistoryLimit: 5
+      app: business-process-service2
   template:
     metadata:
       labels:
-        app: nimble-platform
-        name: business-process-service2
+        app: business-process-service2
     spec:
       containers:
-      - image: nimbleplatform/business-process-service2
-        imagePullPolicy: Always
-        name: business-process-service2
-        ports:
-        - containerPort: 8085
-          name: http
-          protocol: TCP
-        resources:
-          requests:
-            cpu: 200m
-            memory: 256Mi
-        env:
-          - name: SPRING_PROFILES_ACTIVE
-            value: kubernetes
-          - name: DISCOVERY_ENABLED
-            value: "false"
-          - name: DB_CREDENTIALS_JSON # Camunda database
-            valueFrom:
-              secretKeyRef:
-                name: binding-nimble-camunda-db-prod
-                key: binding
-          - name: BLUEMIX_BUSINESS_PROCESS_DB_JSON
-            valueFrom:
-              secretKeyRef:
-                name: binding-nimble-business-process-db-prod
-                key: binding
-          - name: BLUEMIX_UBL_DB_JSON
-            valueFrom:
-              secretKeyRef:
-                name: binding-nimble-ubl-db-prod
-                key: binding
-          - name: BLUEMIX_MODAML_DB_JSON
-            valueFrom:
-              secretKeyRef:
-                name: binding-nimble-modaml-db-prod
-                key: binding
+        - name: business-process-service2
+          image: 'rannybal2024/business-process-service'
+          ports:
+            - containerPort: 8081
+              protocol: TCP
+          env:
+            - name: BUSINESS_PROCESS_DB_HOST
+              value: kola-postgress-do-user-13910731-0.c.db.ondigitalocean.com
+            - name: BUSINESS_PROCESS_DB_PORT
+              value: '25060'
+            - name: BUSINESS_PROCESS_DB_NAME
+              value: businessprocessdb
+            - name: BUSINESS_PROCESS_DB_USERNAME
+              value: doadmin
+            - name: BUSINESS_PROCESS_DB_PASSWORD
+              value: AVNS_xN6h3TZAvlOwe4vdAdk
+            - name: UBL_DB_HOST
+              value: kola-postgress-do-user-13910731-0.c.db.ondigitalocean.com
+            - name: UBL_DB_HOST_PORT
+              value: '25060'
+            - name: UBL_DB_NAME
+              value: ubldb
+            - name: UBL_DB_USERNAME
+              value: doadmin
+            - name: UBL_DB_PASSWORD
+              value: AVNS_xN6h3TZAvlOwe4vdAdk
+            - name: CAMUNDA_DB_HOST
+              value: kola-postgress-do-user-13910731-0.c.db.ondigitalocean.com
+            - name: CAMUNDA_DB_PORT
+              value: '25060'
+            - name: CAMUNDA_DB_NAME
+              value: camundadb
+            - name: CAMUNDA_DB_USERNAME
+              value: doadmin
+            - name: CAMUNDA_DB_PASSWORD
+              value: AVNS_xN6h3TZAvlOwe4vdAdk
+            - name: BINARY_CONTENT_DB_HOST
+              value: kola-postgress-do-user-13910731-0.c.db.ondigitalocean.com
+            - name: BINARY_CONTENT_DB_PORT
+              value: '25060'
+            - name: BINARY_CONTENT_DB_NAME
+              value: binarycontentdb
+            - name: BINARY_CONTENT_DB_USERNAME
+              value: doadmin
+            - name: BINARY_CONTENT_DB_PASSWORD
+              value: AVNS_xN6h3TZAvlOwe4vdAdk
+            - name: BINARY_CONTENT_URL
+              value: 'http://not-yet-in-use/'
+            - name: KAFKA_BOOTSTRAP_SERVERS
+              value: 'kafka:9092'
+            - name: KAFKA_JAAS_CONFIG
+            - name: _JAVA_OPTIONS
+              value: '-Xmx512m -Xms50m'
+            - name: SMTP_HOST
+              value: maildev
+            - name: SMTP_PORT
+              value: '25'
+            - name: SMTP_DEFAULT_FROM
+              value: nimble@local-dev
+            - name: SMTP_USERNAME
+            - name: SMTP_PASSWORD
+            - name: SMTP_AUTH
+              value: 'false'
+            - name: SMTP_STARTTLS
+              value: 'false'
+            - name: BP_SERVICE_OAUTH_CLIENT_ID
+              value: bp-service-client
+            - name: BP_SERVICE_OAUTH_SECRET
+              value: 621c1ec2-6753-4ead-925f-a5df24876a2b
+            - name: IDENTITY_SERVICE_URL
+              value: 'http://identity-service:9096/'
+            - name: TRUST_SERVICE_URL
+              value: 'http://trust-service:9098/'
+            - name: CONFIG_SERVER_URI
+              value: 'http://config-server:8888'
+            - name: CONFIG_SERVER_FAILFAST
+              value: 'true'
+            - name: DISCOVERY_ENABLED
+              value: 'true'
+            - name: DISCOVERY_PREFER_IP
+              value: 'false'
+            - name: DISCOVERY_SERVER_URI
+              value: 'http://service-discovery:8761'
+            - name: BUSINESS_PROCESS_SERVICE_URL
+            - name: DATA_CHANNEL_SERVICE_URL
+              value: 'http://data-channel-service:9099'
+            - name: FRONTEND_URL
+              value: 'https://nimble.kolayam.co.uk'
+            - name: FEDERATION_INSTANCE_ID
+            - name: KAFKA_TOPIC_BUSINESS_PROCESS_UPDATES
+            - name: KEYCLOAK_PUBLIC_KEY
+              value: >-
+                -----BEGIN PUBLIC
+                KEY-----MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAjbTzPIh+ff5lTVW0c4veuS3Ers+29+h9mXXcwkojaDRwzHmf1ZCVvJY3eNy6NCu0SwVksA2tusBZK+qiSo4Kk24DDTNz1JQ7HDvXzTxH6Vfz8vPC9qq+kOPBqUOXctlNTiyz+8uEA6rS1ZpzcbVOdds0xx9k0pSlZhXxbeJlq+m8nS5cWNiAMnS4Z0UQDJXNL5Y8a4z8XTPlX5cv9B2cikQpQ97grnUQ1ihAs+7gw6Jo1DyU+6V1KEYK89yPtn8bSvsgVSIx0g97kBS7c2EhmqBgQ5h5zXW7nLXTiNE+va7Gk0Bfaf6jw5j8p5/uigrRlmgoTQxvgE7oiviJA18ZTQIDAQAB-----END
+                PUBLIC KEY-----
+          resources:
+            limits:
+              memory: 2000Mi
+            requests:
+              cpu: 200m
+              memory: 256Mi
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          imagePullPolicy: Always
+      restartPolicy: Always
+      terminationGracePeriodSeconds: 30
+      dnsPolicy: ClusterFirst
+      securityContext: {}
+      schedulerName: default-scheduler
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 25%
+      maxSurge: 25%
+  revisionHistoryLimit: 10
+  progressDeadlineSeconds: 600
