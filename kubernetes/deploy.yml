@@ -99,6 +99,8 @@ spec:
               value: "false"
             - name: DISCOVERY_SERVER_URI
               value: "http://service-discovery:8761"
+            - name: EUREKA_CLIENT_HEALTHCHECK
+              value: 'false'
             - name: BUSINESS_PROCESS_SERVICE_URL
               value: ""
             - name: DATA_CHANNEL_SERVICE_URL
