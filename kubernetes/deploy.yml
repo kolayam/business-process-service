@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: business-process-service
-          image: nimbleplatform/business-process-service:latest
+          image: rannybal2024/business-process-service:IMAGE_TAG
           env:
             - name: BUSINESS_PROCESS_DB_HOST
               value: "kola-postgress-do-user-13910731-0.c.db.ondigitalocean.com"
