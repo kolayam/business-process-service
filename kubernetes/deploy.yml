@@ -112,10 +112,7 @@ spec:
             - name: KEYCLOAK_PUBLIC_KEY
               value: "-----BEGIN PUBLIC KEY-----MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAjbTzPIh+ff5lTVW0c4veuS3Ers+29+h9mXXcwkojaDRwzHmf1ZCVvJY3eNy6NCu0SwVksA2tusBZK+qiSo4Kk24DDTNz1JQ7HDvXzTxH6Vfz8vPC9qq+kOPBqUOXctlNTiyz+8uEA6rS1ZpzcbVOdds0xx9k0pSlZhXxbeJlq+m8nS5cWNiAMnS4Z0UQDJXNL5Y8a4z8XTPlX5cv9B2cikQpQ97grnUQ1ihAs+7gw6Jo1DyU+6V1KEYK89yPtn8bSvsgVSIx0g97kBS7c2EhmqBgQ5h5zXW7nLXTiNE+va7Gk0Bfaf6jw5j8p5/uigrRlmgoTQxvgE7oiviJA18ZTQIDAQAB-----END PUBLIC KEY-----"
           ports:
-          - name: "http"
-            protocol: TCP
-            port: 8081
-            targetPort: 8085
+            - containerPort: 8085
           resources:
             requests:
               cpu: 200m
