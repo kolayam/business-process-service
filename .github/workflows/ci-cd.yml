@@ -1,0 +1,34 @@
+name: Build and Deploy
+on:
+  push:
+    branches:
+      - master
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_EMAIL }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Build Docker image
+        run: docker build -t rannybal2024/business-process-service:${{ github.run_number }} .
+
+      - name: Push Docker image
+        run: docker push rannybal2024/business-process-service:${{ github.run_number }}
+
+      - name: Update Kubernetes deployment with new image
+        run: |
+          sed -i 's|IMAGE_TAG|${{ github.run_number }}|' kubernetes/deploy.yml
+
+      - name: Set up kubeconfig
+        run: echo "${{ secrets.KUBECONFIG }}" > $HOME/kube-config.yaml
+
+      - name: Apply Kubernetes deployment
+        run: kubectl --kubeconfig=$HOME/kube-config.yaml apply -f kubernetes/deploy.yml
+
+      - name: Clean up kubeconfig
+        run: rm -f $HOME/kube-config.yaml
