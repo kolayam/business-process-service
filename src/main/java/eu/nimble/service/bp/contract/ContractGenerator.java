@@ -169,7 +169,7 @@ public class ContractGenerator {
                 PartyType supplierParty = SpringBridge.getInstance().getiIdentityClientTyped().getParty(bearerToken,sellerPartyId);
                 PartyType customerParty = null;
 
-                logger.info("buyerPartyId {} buyerPartyId {} buyerFederationId {} ",buyerPartyId,buyerPartyId,buyerFederationId);
+                logger.info("buyerPartyId {} SpringBridge.getInstance().getFederationId() {} buyerFederationId {} ",buyerPartyId,SpringBridge.getInstance().getFederationId(),buyerFederationId);
                 if(buyerPartyId != null){
                     if(!buyerFederationId.contentEquals(SpringBridge.getInstance().getFederationId())){
                         Response response = SpringBridge.getInstance().getDelegateClient().getParty(bearerToken,Long.parseLong(buyerPartyId),false,buyerFederationId);
