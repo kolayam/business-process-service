@@ -108,7 +108,7 @@ spec:
             - name: FRONTEND_URL
               value: "https://nimble.kolayam.co.uk"
             - name: FEDERATION_INSTANCE_ID
-              value: ""
+              value: "DEVELOPMENT"
             - name: "DELEGATE_SERVICE_URL"
               value: "http://delegate-service:9265"
             - name: "TRACKING_ANALYSIS_SERVICE_URL"
