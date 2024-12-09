@@ -109,6 +109,10 @@ spec:
               value: "https://nimble.kolayam.co.uk"
             - name: FEDERATION_INSTANCE_ID
               value: ""
+            - name: "DELEGATE_SERVICE_URL"
+              value: "http://delegate-service:9265"
+            - name: "TRACKING_ANALYSIS_SERVICE_URL"
+              value: "http://tracking-analysis-service:8091"
             - name: KAFKA_TOPIC_BUSINESS_PROCESS_UPDATES
               value: ""
             - name: KEYCLOAK_PUBLIC_KEY
