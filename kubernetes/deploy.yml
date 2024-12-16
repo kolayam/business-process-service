@@ -62,25 +62,27 @@ spec:
             - name: BINARY_CONTENT_URL
               value: "http://not-yet-in-use/"
             - name: KAFKA_BOOTSTRAP_SERVERS
-              value: "kafka:9092"
+              value: "my-cluster-kafka-bootstrap:9092"
             - name: KAFKA_JAAS_CONFIG
               value: ""
             - name: _JAVA_OPTIONS
               value: "-Xmx512m -Xms50m"
             - name: SMTP_HOST
-              value: "maildev"
+              value: "smtp.gmail.com"
             - name: SMTP_PORT
-              value: "25"
+              value: "587"
             - name: SMTP_DEFAULT_FROM
-              value: "nimble@local-dev"
+              value: "support@kolanot.co.uk"
             - name: SMTP_USERNAME
-              value: ""
+              value: "support@kolanot.co.uk"
             - name: SMTP_PASSWORD
-              value: ""
+              value: "lzuqcjludynkrtvd"
             - name: SMTP_AUTH
-              value: "false"
+              value: "true"
             - name: SMTP_STARTTLS
-              value: "false"
+              value: "true"
+            - name: LOGSTASH_URI
+              value: "logstash-service:5044"
             - name: BP_SERVICE_OAUTH_CLIENT_ID
               value: "bp-service-client"
             - name: BP_SERVICE_OAUTH_SECRET
@@ -106,15 +108,17 @@ spec:
             - name: DATA_CHANNEL_SERVICE_URL
               value: "http://data-channel-service:9099"
             - name: FRONTEND_URL
-              value: "https://nimble.kolayam.co.uk"
+              value: "https://www.kolayam.co.uk"
             - name: FEDERATION_INSTANCE_ID
               value: "DEVELOPMENT"
             - name: "DELEGATE_SERVICE_URL"
-              value: "http://delegate-service:9265"
+              value: "http://delegate-service:8080"
             - name: "TRACKING_ANALYSIS_SERVICE_URL"
               value: "http://tracking-analysis-service:8091"
             - name: KAFKA_TOPIC_BUSINESS_PROCESS_UPDATES
               value: ""
+            - name: STRIPE_SECRET_KEY
+              value: "sk_test_51NYrpWDm3eNdEyUnTxNx27CcIFD22jjnT3zqtt8MAQGzsP1oe6rGqdhQgsaZKR7EtOSPznIEw80rBE0G65jLEQ8I006Oy5RGOc"
             - name: KEYCLOAK_PUBLIC_KEY
               value: "-----BEGIN PUBLIC KEY-----MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAjbTzPIh+ff5lTVW0c4veuS3Ers+29+h9mXXcwkojaDRwzHmf1ZCVvJY3eNy6NCu0SwVksA2tusBZK+qiSo4Kk24DDTNz1JQ7HDvXzTxH6Vfz8vPC9qq+kOPBqUOXctlNTiyz+8uEA6rS1ZpzcbVOdds0xx9k0pSlZhXxbeJlq+m8nS5cWNiAMnS4Z0UQDJXNL5Y8a4z8XTPlX5cv9B2cikQpQ97grnUQ1ihAs+7gw6Jo1DyU+6V1KEYK89yPtn8bSvsgVSIx0g97kBS7c2EhmqBgQ5h5zXW7nLXTiNE+va7Gk0Bfaf6jw5j8p5/uigrRlmgoTQxvgE7oiviJA18ZTQIDAQAB-----END PUBLIC KEY-----"
           ports:
