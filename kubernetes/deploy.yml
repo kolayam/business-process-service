@@ -110,9 +110,9 @@ spec:
             - name: FRONTEND_URL
               value: "https://www.kolayam.co.uk"
             - name: FEDERATION_INSTANCE_ID
-              value: "DEVELOPMENT"
-            - name: "DELEGATE_SERVICE_URL"
-              value: "http://delegate-service:8080"
+              value: ""
+            # - name: "DELEGATE_SERVICE_URL"
+            #   value: "http://delegate-service:8080"
             - name: "TRACKING_ANALYSIS_SERVICE_URL"
               value: "http://tracking-analysis-service:8091"
             - name: KAFKA_TOPIC_BUSINESS_PROCESS_UPDATES
