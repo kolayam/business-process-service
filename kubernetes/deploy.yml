@@ -110,7 +110,7 @@ spec:
             - name: FRONTEND_URL
               value: "https://www.kolayam.co.uk"
             - name: FEDERATION_INSTANCE_ID
-              value: "DEVELOPMENT"
+              value: "kerberos"
             - name: "DELEGATE_SERVICE_URL"
               value: "http://delegate-service:8080"
             - name: "TRACKING_ANALYSIS_SERVICE_URL"
