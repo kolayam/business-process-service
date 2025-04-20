@@ -22,7 +22,7 @@ spec:
             - name: BUSINESS_PROCESS_DB_HOST
               value: "kola-postgress-do-user-13910731-0.c.db.ondigitalocean.com"
             - name: BUSINESS_PROCESS_DB_PORT
-              value: "25060"
+              value: "25061"
             - name: BUSINESS_PROCESS_DB_NAME
               value: "businessprocessdb"
             - name: BUSINESS_PROCESS_DB_USERNAME
@@ -32,7 +32,7 @@ spec:
             - name: UBL_DB_HOST
               value: "kola-postgress-do-user-13910731-0.c.db.ondigitalocean.com"
             - name: UBL_DB_HOST_PORT
-              value: "25060"
+              value: "25061"
             - name: UBL_DB_NAME
               value: "ubldb"
             - name: UBL_DB_USERNAME
@@ -42,7 +42,7 @@ spec:
             - name: CAMUNDA_DB_HOST
               value: "kola-postgress-do-user-13910731-0.c.db.ondigitalocean.com"
             - name: CAMUNDA_DB_PORT
-              value: "25060"
+              value: "25061"
             - name: CAMUNDA_DB_NAME
               value: "camundadb"
             - name: CAMUNDA_DB_USERNAME
@@ -52,7 +52,7 @@ spec:
             - name: BINARY_CONTENT_DB_HOST
               value: "kola-postgress-do-user-13910731-0.c.db.ondigitalocean.com"
             - name: BINARY_CONTENT_DB_PORT
-              value: "25060"
+              value: "25061"
             - name: BINARY_CONTENT_DB_NAME
               value: "binarycontentdb"
             - name: BINARY_CONTENT_DB_USERNAME
