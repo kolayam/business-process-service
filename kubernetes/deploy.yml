@@ -15,6 +15,7 @@ spec:
       labels:
         app: business-process-service
     spec:
+      dnsPolicy: ClusterFirst
       containers:
         - name: business-process-service
           image: rannybal2024/business-process-service:IMAGE_TAG
@@ -28,7 +29,10 @@ spec:
             - name: BUSINESS_PROCESS_DB_USERNAME
               value: "doadmin"
             - name: BUSINESS_PROCESS_DB_PASSWORD
-              value: "AVNS_xN6h3TZAvlOwe4vdAdk"
+              valueFrom:
+                secretKeyRef:
+                  name: db-secrets
+                  key: PG_DOADMIN_PASSWORD
             - name: UBL_DB_HOST
               value: "kola-postgress-do-user-13910731-0.c.db.ondigitalocean.com"
             - name: UBL_DB_HOST_PORT
@@ -38,7 +42,10 @@ spec:
             - name: UBL_DB_USERNAME
               value: "doadmin"
             - name: UBL_DB_PASSWORD
-              value: "AVNS_xN6h3TZAvlOwe4vdAdk"
+              valueFrom:
+                secretKeyRef:
+                  name: db-secrets
+                  key: PG_DOADMIN_PASSWORD
             - name: CAMUNDA_DB_HOST
               value: "kola-postgress-do-user-13910731-0.c.db.ondigitalocean.com"
             - name: CAMUNDA_DB_PORT
@@ -48,7 +55,10 @@ spec:
             - name: CAMUNDA_DB_USERNAME
               value: "doadmin"
             - name: CAMUNDA_DB_PASSWORD
-              value: "AVNS_xN6h3TZAvlOwe4vdAdk"
+              valueFrom:
+                secretKeyRef:
+                  name: db-secrets
+                  key: PG_DOADMIN_PASSWORD
             - name: BINARY_CONTENT_DB_HOST
               value: "kola-postgress-do-user-13910731-0.c.db.ondigitalocean.com"
             - name: BINARY_CONTENT_DB_PORT
@@ -58,7 +68,10 @@ spec:
             - name: BINARY_CONTENT_DB_USERNAME
               value: "doadmin"
             - name: BINARY_CONTENT_DB_PASSWORD
-              value: "AVNS_xN6h3TZAvlOwe4vdAdk"
+              valueFrom:
+                secretKeyRef:
+                  name: db-secrets
+                  key: PG_DOADMIN_PASSWORD
             - name: BINARY_CONTENT_URL
               value: "http://not-yet-in-use/"
             - name: KAFKA_BOOTSTRAP_SERVERS
@@ -66,7 +79,7 @@ spec:
             - name: KAFKA_JAAS_CONFIG
               value: ""
             - name: _JAVA_OPTIONS
-              value: "-Xmx512m -Xms50m"
+              value: "-Xmx1024m -Xms50m"
             - name: SMTP_HOST
               value: "smtp.gmail.com"
             - name: SMTP_PORT
@@ -76,7 +89,10 @@ spec:
             - name: SMTP_USERNAME
               value: "support@kolanot.co.uk"
             - name: SMTP_PASSWORD
-              value: "lzuqcjludynkrtvd"
+              valueFrom:
+                secretKeyRef:
+                  name: keycloak-secrets
+                  key: SMTP_PASSWORD
             - name: SMTP_AUTH
               value: "true"
             - name: SMTP_STARTTLS
@@ -86,7 +102,10 @@ spec:
             - name: BP_SERVICE_OAUTH_CLIENT_ID
               value: "bp-service-client"
             - name: BP_SERVICE_OAUTH_SECRET
-              value: "621c1ec2-6753-4ead-925f-a5df24876a2b"
+              valueFrom:
+                secretKeyRef:
+                  name: keycloak-secrets
+                  key: BP_SERVICE_OAUTH_SECRET
             - name: IDENTITY_SERVICE_URL
               value: "http://identity-service:9096/"
             - name: TRUST_SERVICE_URL
@@ -118,9 +137,15 @@ spec:
             - name: KAFKA_TOPIC_BUSINESS_PROCESS_UPDATES
               value: ""
             - name: STRIPE_SECRET_KEY
-              value: "sk_test_51NYrpWDm3eNdEyUnTxNx27CcIFD22jjnT3zqtt8MAQGzsP1oe6rGqdhQgsaZKR7EtOSPznIEw80rBE0G65jLEQ8I006Oy5RGOc"
+              valueFrom:
+                secretKeyRef:
+                  name: keycloak-secrets
+                  key: STRIPE_SECRET_KEY
             - name: KEYCLOAK_PUBLIC_KEY
-              value: "-----BEGIN PUBLIC KEY-----MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAjbTzPIh+ff5lTVW0c4veuS3Ers+29+h9mXXcwkojaDRwzHmf1ZCVvJY3eNy6NCu0SwVksA2tusBZK+qiSo4Kk24DDTNz1JQ7HDvXzTxH6Vfz8vPC9qq+kOPBqUOXctlNTiyz+8uEA6rS1ZpzcbVOdds0xx9k0pSlZhXxbeJlq+m8nS5cWNiAMnS4Z0UQDJXNL5Y8a4z8XTPlX5cv9B2cikQpQ97grnUQ1ihAs+7gw6Jo1DyU+6V1KEYK89yPtn8bSvsgVSIx0g97kBS7c2EhmqBgQ5h5zXW7nLXTiNE+va7Gk0Bfaf6jw5j8p5/uigrRlmgoTQxvgE7oiviJA18ZTQIDAQAB-----END PUBLIC KEY-----"
+              valueFrom:
+                secretKeyRef:
+                  name: keycloak-secrets
+                  key: KEYCLOAK_PUBLIC_KEY
           ports:
             - containerPort: 8085
           resources:
@@ -128,4 +153,5 @@ spec:
               cpu: 200m
               memory: 256Mi
             limits:
+              cpu: 500m
               memory: 2000Mi
